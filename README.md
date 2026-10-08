@@ -96,4 +96,4 @@ NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=발급받은_Access_Key
 
 Web3Forms Access Key는 브라우저 공개용입니다. `NEXT_PUBLIC_` 환경 변수는 빌드된 브라우저 코드에 포함되므로 비밀 정보 저장 용도로 사용하면 안 됩니다. 배포 시에도 빌드 환경에 키를 설정해야 합니다. 자세한 전송 동작은 [`docs/contact-form.md`](docs/contact-form.md)를 참고하세요.
 
-`.env.local`, 설치 패키지, 빌드 결과, 원본 사진과 보관용 디자인 자료는 저장소에 포함하지 않습니다. 사용한 SUIT와 Inconsolata 폰트의 라이선스는 [`FONT-LICENSES.md`](FONT-LICENSES.md)에 정리했습니다.
+`.env.local`, 설치 패키지, 빌드 결과, 원본 사진과 보관용 디자인 자료는 저장소에 포함하지 않습니다.
