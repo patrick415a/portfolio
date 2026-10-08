@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="900" viewBox="0 0 1920 900" role="img" aria-label="lilac 배경"><defs><clipPath id="bounds"><rect width="1920" height="900"/></clipPath></defs><g clip-path="url(#bounds)"><rect width="1920" height="900" fill="#C4B1D9"/><circle cx="1400" cy="1200" r="700" fill="#E9C9D6"/><circle cx="450" cy="1110" r="550" fill="#ABBADF"/><g id="wallpaper-eyes" aria-label="커서를 바라보는 두 배경 캐릭터" fill="#332942">
+ <defs>
+  <clipPath id="eye-l1"><ellipse cx="411" cy="723" rx="18" ry="24"/></clipPath>
+  <clipPath id="eye-l2"><ellipse cx="467" cy="723" rx="18" ry="24"/></clipPath>
+  <clipPath id="eye-r1"><ellipse cx="1484" cy="645" rx="18" ry="24"/></clipPath>
+  <clipPath id="eye-r2"><ellipse cx="1540" cy="645" rx="18" ry="24"/></clipPath>
+ </defs>
+ <g id="lavender-face" transform="translate(28 -8)">
+  <ellipse cx="411" cy="723" rx="18" ry="24" fill="#FFF7E9"/>
+  <ellipse cx="418" cy="720" rx="15" ry="21" clip-path="url(#eye-l1)"/>
+  <ellipse cx="467" cy="723" rx="18" ry="24" fill="#FFF7E9"/>
+  <ellipse cx="474" cy="720" rx="15" ry="21" clip-path="url(#eye-l2)"/>
+  <g fill="none" stroke="#332942" stroke-width="2" stroke-linecap="round"><path d="M398 691Q411 684 424 689"/><path d="M454 691Q467 684 480 689"/></g>
+ </g>
+ <g id="blue-face" transform="translate(-26 -13)">
+  <ellipse cx="1484" cy="645" rx="18" ry="24" fill="#FFF7E9"/>
+  <ellipse cx="1477" cy="640" rx="15" ry="21" clip-path="url(#eye-r1)"/>
+  <ellipse cx="1540" cy="645" rx="18" ry="24" fill="#FFF7E9"/>
+  <ellipse cx="1533" cy="640" rx="15" ry="21" clip-path="url(#eye-r2)"/>
+  <g fill="none" stroke="#332942" stroke-width="2" stroke-linecap="round"><path d="M1471 611Q1484 606 1497 613"/><path d="M1527 611Q1540 606 1553 613"/></g>
+ </g>
+</g>
+</g></svg>

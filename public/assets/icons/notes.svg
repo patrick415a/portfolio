@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" role="img" aria-label="notes">
+  <defs><filter id="soft-edge" x="-20%" y="-10%" width="140%" height="120%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="0.35"/></filter></defs>
+  <g filter="url(#soft-edge)">
+  <rect x="8" y="5" width="28" height="34" rx="3" fill="#BDD9B0"/>
+  <path d="M11 5H14V39H11A3 3 0 0 1 8 36V8A3 3 0 0 1 11 5Z" fill="#A8C99A"/>
+  <rect x="8" y="5" width="28" height="34" rx="3" fill="none" stroke="#51465F" stroke-width="1.5"/>
+  <path d="M14 5.75V38.25M6 13H10M6 22H10M6 31H10" fill="none" stroke="#51465F" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <rect x="19" y="13" width="12" height="16" rx="2" fill="#FFFAF0"/>
+  <path d="M22 18.5H28M22 23.5H26" fill="none" stroke="#7D7289" stroke-width="1" stroke-linecap="round"/>
+</svg>
