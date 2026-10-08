@@ -1,64 +1,85 @@
-# Sungho 포트폴리오
+# Sungho | 내 생각을 움직이는 작업실
 
-바탕화면과 파일 창의 형태로 소개와 작업물을 보여 주는 Next.js 포트폴리오입니다.
+**바이브 코딩을 통해 구현한 데스크톱 스타일 포트폴리오 웹 프로젝트**
 
-## 실행
+## 프로젝트 목표
 
-```powershell
+머릿속 아이디어를 눈에 보이는 화면으로 만들고, 소개와 작업물을 직접 열어 볼 수 있는 작은 작업실을 만들었습니다. 바탕화면과 파일 창을 콘셉트로 정하고, AI와 함께 디자인부터 웹 구현까지 하나씩 배우며 완성했습니다. 실행 화면을 확인하면서 내용과 배치, 상호작용을 직접 검토하고 조정했습니다.
+
+## 제작 과정
+
+1. **콘셉트 설정** — 포트폴리오를 컴퓨터 바탕화면처럼 구성하고, 소개·프로젝트·메모장·연락처를 각각의 파일과 창으로 나누었습니다.
+2. **화면 구성** — 파스텔 색상과 아이콘, 파일 창을 중심으로 화면 시안을 구체화하고 웹 요소로 구현했습니다.
+3. **캐릭터 제작** — 프로필 사진을 AI로 캐릭터화하고, 화면 분위기에 맞게 선과 색을 단순하게 다듬었습니다.
+4. **웹 구현** — Codex와 함께 Next.js와 React로 창 이동·크기 조절, 테마 전환, 프로젝트 상세와 메모장을 구현했습니다.
+5. **기능 연결과 조정** — Web3Forms로 메일 전송을 연결하고, PC와 모바일의 배치·여백·창 높이·사용 흐름을 조정했습니다.
+
+### AI와 도구의 역할
+
+| 도구 | 사용 목적 |
+| --- | --- |
+| AI 이미지 생성 | 프로필 사진을 포트폴리오 분위기에 맞는 캐릭터 이미지로 변환 |
+| Codex | 화면과 기능 구현, 오류 수정과 반복적인 디자인 조정 지원 |
+| Next.js + React | 페이지 구성과 창·아이콘·폼의 상태 관리 |
+| TypeScript | 프로젝트 데이터와 컴포넌트의 타입 정의 |
+| CSS | 파스텔 테마, 창 배치, 반응형 화면과 애니메이션 구현 |
+| SVG + Sharp | 아이콘 구성과 PNG 변환 |
+| Web3Forms | 연락처의 메일 전송 |
+
+화면의 방향과 소개 내용은 직접 정하고, AI가 구현한 결과를 확인하며 수정 요청과 세부 조정을 반복했습니다.
+
+## 포트폴리오 소개
+
+Sungho는 소개와 프로젝트를 파일처럼 열어 보는 포트폴리오입니다. 방문자는 바탕화면에서 원하는 창을 열고, 작업물을 살펴보고, 메모를 남기거나 메일을 보낼 수 있습니다. PC에서는 여러 창을 함께 사용하고, 모바일에서는 한 번에 하나의 창을 보여 줍니다.
+
+### 주요 기능
+
+- **About Me:** 캐릭터 프로필, 기본 정보, 소개 문구와 사용 기술 표시
+- **My Projects:** 네 개의 프로젝트 자리와 공개 작업물의 상세 정보 표시
+- **창 조작:** 이동, 크기 조절, 최소화·최대화·닫기와 하단 독에서 복원
+- **메모장:** 자유롭게 입력하고 같은 브라우저에 자동 저장하는 `notes.txt`
+- **메일 보내기:** 이름·답변받을 이메일·내용 입력과 실제 메일 전송
+- **세 가지 테마:** Peach, Sky, Lilac 색상 전환
+- **배경 상호작용:** 마우스나 터치를 따라 움직이는 캐릭터의 시선과 회전하는 별
+- **반응형 화면:** PC의 다중 창과 모바일의 단일 창 구성
+
+메모는 방문자 브라우저에만 저장되며 사이트 운영자에게 전송되지 않습니다. 현재 포트폴리오의 상세 화면에는 ‘현재 보고 있는 페이지’를 표시해 같은 사이트를 다시 열지 않도록 했습니다.
+
+### 조작 방법
+
+| 동작 | PC | 모바일 |
+| --- | --- | --- |
+| 파일 열기 | 바탕화면 아이콘 두 번 클릭 | 아이콘 한 번 터치 |
+| 창 열기·복원 | 하단 독 아이콘 클릭 | 하단 독 아이콘 터치 |
+| 창 이동 | 제목줄 드래그 | 화면에 맞춘 고정 배치 |
+| 창 크기 조절 | 오른쪽·아래쪽 가장자리 또는 모서리 드래그 | 화면 크기에 맞춰 자동 배치 |
+| 최소화·최대화·닫기 | 제목줄 오른쪽 버튼 클릭 | 제목줄 오른쪽 버튼 터치 |
+| 프로젝트 상세 | 공개 프로젝트 카드 클릭 | 공개 프로젝트 카드 터치 |
+| 테마 변경 | 오른쪽 위 색상 버튼 클릭 | 오른쪽 위 색상 버튼 터치 |
+
+PC에서는 오른쪽 위 초기화 버튼으로 바탕화면 아이콘의 위치를 기본 상태로 되돌릴 수 있습니다.
+
+## 로컬 실행
+
+```bash
 npm ci
 npm run dev
 ```
 
-브라우저에서 `http://localhost:3000`을 열면 됩니다. 메일 전송을 사용하려면 `.env.example`을 참고해 루트에 `.env.local`을 만들고 Web3Forms Access Key를 설정하세요. 기존 `VITE_WEB3FORMS_ACCESS_KEY` 이름도 지원합니다. 자세한 설정은 [`docs/contact-form.md`](docs/contact-form.md)를 참고하세요. 배포 전에는 `npm run build`, 코드 검사는 `npm run lint`로 확인할 수 있습니다.
+개발 서버가 출력한 주소를 브라우저에서 열면 됩니다. 기본 주소는 `http://localhost:3000`입니다. 배포용 빌드는 `npm run build`, 빌드한 앱 실행은 `npm run start`, 코드 검사는 `npm run lint`로 진행할 수 있습니다.
 
-`.env.local`, 설치 패키지, 빌드 결과, 로컬 설정, 원본 사진과 보관용 디자인 자료는 Git에 포함하지 않습니다. 키가 없는 상태에서도 포트폴리오는 실행되며 메일 전송 버튼만 비활성화됩니다.
+### 이메일 전송 설정
 
-## 어디를 수정하면 되나요?
+메일 전송을 사용하려면 [Web3Forms](https://web3forms.com/)에서 Access Key를 발급받고, 프로젝트 루트에 `.env.local` 파일을 만듭니다. [`.env.example`](.env.example)을 참고하세요.
 
-| 파일 | 역할 |
-| --- | --- |
-| [`src/app/page.tsx`](src/app/page.tsx) | 첫 화면을 불러오는 페이지 |
-| [`src/components/PortfolioDesktop.tsx`](src/components/PortfolioDesktop.tsx) | 바탕화면, 아이콘, 창, 독, 테마와 상호작용 |
-| [`src/components/WindowContent.tsx`](src/components/WindowContent.tsx) | About, Works, 프로젝트 상세, Contact의 내용 |
-| [`src/components/NotesContent.tsx`](src/components/NotesContent.tsx) | 메모 입력, 브라우저 자동 저장, 저장 상태 표시 |
-| [`src/components/ContactForm.tsx`](src/components/ContactForm.tsx) | 이름·이메일·내용 입력과 메일 전송 상태 처리 |
-| [`src/components/PortfolioPreview.tsx`](src/components/PortfolioPreview.tsx) | 포트폴리오 카드와 상세 창의 바탕화면 미리보기 |
-| [`src/app/globals.css`](src/app/globals.css) | 세 테마의 색과 PC·모바일 배치 |
-| [`src/data/projects.ts`](src/data/projects.ts) | 프로젝트 카드와 상세 화면의 데이터 |
-| [`src/data/profile.ts`](src/data/profile.ts) | Contact의 이메일·GitHub 주소 |
-| [`public/assets`](public/assets) | 아이콘, 스크린샷, 별과 배경 SVG |
+```env
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=발급받은_Access_Key
+```
 
-## 공부할 때 읽는 순서
+기존 구따지의 `VITE_WEB3FORMS_ACCESS_KEY` 이름도 지원합니다. 두 이름을 함께 설정하면 `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`가 우선 적용됩니다.
 
-소스의 한국어 주석은 각 기능의 역할과 그렇게 구현한 이유를 설명합니다. 처음부터 전체를 읽기보다 다음 순서로 한 기능씩 따라가 보세요.
+설정 후 개발 서버를 다시 시작하세요. Key가 없으면 포트폴리오는 실행되지만 메일 전송 버튼은 비활성화됩니다. 실제 수신자는 Access Key에 연결된 이메일이며, 입력한 이메일은 회신 주소로 사용됩니다.
 
-1. `src/app/page.tsx`, `src/app/layout.tsx`: 페이지가 시작되는 곳과 공통 CSS가 연결되는 곳입니다.
-2. `src/data/projects.ts`, `src/data/profile.ts`: 화면에 표시할 데이터를 정의합니다. 프로젝트 제목이나 설명부터 바꿔보면 데이터와 화면의 관계를 확인하기 쉽습니다.
-3. `src/components/WindowContent.tsx`: 데이터를 카드와 상세 화면으로 만드는 부분입니다. `map`은 배열을 여러 요소로, `props`는 부모가 전달한 값을 의미합니다.
-4. `src/components/PortfolioDesktop.tsx`의 `PortfolioDesktop` 함수: 창과 테마의 상태를 관리합니다. `openApp` → `windows` 변경 → `AppWindow` 표시 순서부터 따라가세요.
-5. 같은 파일의 `DesktopShortcut`, `AppWindow`: 클릭·드래그·크기 조절 입력을 받고 부모의 함수를 호출합니다. `useRef`에 시작점을 저장하고, 이동량을 부모의 `useState`에 반영합니다.
-6. 같은 파일의 `Wallpaper`: 마우스/터치 위치를 시선으로 바꾸는 과정입니다. `useEffect`에서 이벤트를 등록하고, `requestAnimationFrame`으로 조금씩 이동한 뒤 필요 없는 이벤트를 정리합니다.
-7. `src/app/globals.css`: 테마 변수, 창의 배치, 모바일 규칙을 확인하세요. `--accent`나 제목의 `line-height`처럼 한 값씩 수정하면 변화가 눈에 잘 보입니다.
-8. `src/components/AppIcon.tsx`, `scripts/render-app-icons.mjs`: 공통 아이콘 표시와 SVG를 부드러운 PNG로 만드는 작업입니다. SVG를 수정한 뒤 `node scripts/render-app-icons.mjs`를 직접 실행해 PNG를 갱신합니다.
+Web3Forms Access Key는 브라우저 공개용입니다. `NEXT_PUBLIC_` 환경 변수는 빌드된 브라우저 코드에 포함되므로 비밀 정보 저장 용도로 사용하면 안 됩니다. 배포 시에도 빌드 환경에 키를 설정해야 합니다. 자세한 전송 동작은 [`docs/contact-form.md`](docs/contact-form.md)를 참고하세요.
 
-예를 들어 Works 카드를 누르면 `WorksContent`가 `onOpenProject(project)`를 호출합니다. 부모의 `openProject`가 선택된 프로젝트를 저장하고 상세 창을 열면, `ProjectDetailContent`가 그 프로젝트를 전달받아 표시합니다. 이처럼 **입력 → 상태 변경 → 화면 표시**의 흐름으로 읽으면 됩니다.
-
-주석은 브라우저 화면에 표시되지 않습니다. `public/assets/icons`의 SVG는 아이콘 원본이고 `*-smooth.png`는 변환 결과이므로, 그림을 바꾸려면 SVG를 먼저 편집하세요.
-
-## 현재 동작
-
-- PC: 아이콘 한 번 클릭으로 선택, 두 번 클릭으로 실행, 드래그로 이동, 오른쪽 위 버튼으로 위치 초기화
-- 모바일: 아이콘 한 번 터치로 실행, 한 화면에 창 하나 표시
-- 창: 제목줄로 앞쪽 배치·드래그, 오른쪽·아래쪽·오른쪽 아래 모서리로 크기 조절, 최소화·최대화·닫기, 독에서 열기·복원
-- Works: 프로젝트 목록을 데이터에서 만들고 공개 프로젝트를 누르면 상세 창 표시
-- portfolio.site: 현재 사이트의 소개와 기술을 상세 창에 표시. 웹사이트 항목은 클릭되지 않는 현재 페이지 안내
-- Notes: 빈 메모장에 직접 입력하고 같은 브라우저에 자동 저장. 입력 내용은 사이트 운영자에게 전송되지 않음
-- Contact: 메일 작성 폼과 Web3Forms 발송 연결. 환경 변수 설정은 [`docs/contact-form.md`](docs/contact-form.md) 참고
-- 테마: Peach, Sky, Lilac 전환
-- 배경: 천천히 회전하는 별과 PC에서는 마우스, 모바일에서는 마지막 터치 지점을 바라보는 두 캐릭터의 눈
-
-현재 프로젝트 사이트·GitHub의 실제 주소는 제공받지 않아 링크를 연결하지 않았습니다. 주소를 받으면 `src/data/projects.ts`와 `src/data/profile.ts`에 추가하면 됩니다. 메일 폼은 Web3Forms 키가 설정되면 전송할 수 있습니다. `notes.txt`의 내용은 방문자 브라우저에만 저장됩니다. 브라우저 저장을 사용할 수 없으면 이번 방문 동안만 메모리에 보관하며 화면에 해당 상태를 표시합니다.
-
-현재 Works에는 네 개의 카드가 표시됩니다. 새 작업이 생기면 `src/data/projects.ts`의 빈 자리를 수정하거나 항목을 하나씩 추가하고 `status`를 `public`으로 바꾸면 카드와 상세 창에 반영됩니다. 프로젝트가 늘어나면 Works 창의 목록을 스크롤할 수 있습니다.
-
-처음 만들었던 디자인 자료는 `archive/final-design`에 보관되어 있습니다. 폴더 전체를 이미지로 붙인 구현이 아니라, 화면 요소를 HTML/CSS와 재사용 가능한 SVG로 구성했습니다.
+`.env.local`, 설치 패키지, 빌드 결과, 원본 사진과 보관용 디자인 자료는 저장소에 포함하지 않습니다. 사용한 SUIT와 Inconsolata 폰트의 라이선스는 [`FONT-LICENSES.md`](FONT-LICENSES.md)에 정리했습니다.
