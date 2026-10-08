@@ -84,7 +84,7 @@ npm run dev
 
 ### 이메일 전송 설정
 
-메일 전송을 사용하려면 [Web3Forms](https://web3forms.com/)에서 Access Key를 발급받고, 프로젝트 루트에 `.env.local` 파일을 만듭니다. [`.env.example`](.env.example)을 참고하세요.
+메일 전송을 사용하려면 [Web3Forms](https://web3forms.com/)에서 Access Key를 발급받고, 프로젝트 루트에 `.env.local` 파일을 만든 뒤 아래 내용을 입력하세요.
 
 ```env
 NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=발급받은_Access_Key
