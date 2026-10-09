@@ -5,7 +5,9 @@
 
 import Image from "next/image";
 import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
-import { projects, type Project } from "@/data/projects";
+import type { Project } from "@/data/projects";
+import { THEMES } from "@/data/themes";
+import { useTheme } from "@/hooks/useTheme";
 import { AboutContent, ContactContent, ProjectDetailContent, WorksContent } from "./WindowContent";
 import { NotesContent } from "./NotesContent";
 import { ContactForm, EMPTY_CONTACT_MESSAGE, type ContactMessage } from "./ContactForm";
@@ -14,7 +16,6 @@ import { AppIcon } from "./AppIcon";
 
 type AppId = "about" | "works" | "notes" | "contact" | "project";
 type ShortcutId = Exclude<AppId, "project">;
-type Theme = "peach" | "sky" | "lilac";
 type Point = { x: number; y: number };
 type WindowSize = { width: number; height: number };
 type ResizeDirection = "right" | "bottom" | "corner";
@@ -54,7 +55,7 @@ const SHORTCUTS: { id: ShortcutId; label: string }[] = [
 const WINDOW_ORDER: AppId[] = ["works", "about", "notes", "contact", "project"];
 const WINDOW_TITLES: Record<AppId, string> = {
   about: "about_me.txt",
-  works: `works / ${projects.length} items`,
+  works: "works",
   notes: "notes.txt",
   contact: "contact.txt",
   project: "project detail",
@@ -308,6 +309,7 @@ type AppWindowProps = {
   title: string;
   state: WindowState;
   mobileVisible: boolean;
+  projectCount: number;
   onFocus: (id: AppId) => void;
   onMove: (id: AppId, point: Point) => void;
   onResize: (id: AppId, size: WindowSize) => void;
@@ -317,7 +319,7 @@ type AppWindowProps = {
   children: React.ReactNode;
 };
 
-function AppWindow({ id, title, state, mobileVisible, onFocus, onMove, onResize, onMinimize, onMaximize, onClose, children }: AppWindowProps) {
+function AppWindow({ id, title, state, mobileVisible, projectCount, onFocus, onMove, onResize, onMinimize, onMaximize, onClose, children }: AppWindowProps) {
   // 모든 앱이 공유하는 창 틀이다. children에 각 앱의 내용이 들어오고 콜백으로 부모 상태를 바꾼다.
   const drag = useRef<{ pointerId: number; startX: number; startY: number; left: number; top: number } | null>(null);
   const resize = useRef<{ pointerId: number; startX: number; startY: number; size: WindowSize; max: WindowSize; direction: ResizeDirection } | null>(null);
@@ -435,7 +437,7 @@ function AppWindow({ id, title, state, mobileVisible, onFocus, onMove, onResize,
 
   return (
     <section
-      className={`app-window window-${id} ${id === "works" && projects.length > 4 ? "has-many-projects" : ""} ${state.maximized ? "is-maximized" : ""} ${mobileVisible ? "mobile-visible" : ""}`}
+      className={`app-window window-${id} ${id === "works" && projectCount > 4 ? "has-many-projects" : ""} ${state.maximized ? "is-maximized" : ""} ${mobileVisible ? "mobile-visible" : ""}`}
       style={style}
       aria-label={title}
       onPointerDown={() => onFocus(id)}
@@ -472,9 +474,9 @@ function AppWindow({ id, title, state, mobileVisible, onFocus, onMove, onResize,
   );
 }
 
-export default function PortfolioDesktop() {
+export default function PortfolioDesktop({ projects, projectsUnavailable = false }: { projects: Project[]; projectsUnavailable?: boolean }) {
   // useState 값이 바뀌면 React가 화면을 다시 계산한다. 앱 간 공유 상태는 이 부모에 모은다.
-  const [theme, setTheme] = useState<Theme>("peach");
+  const [theme, setTheme] = useTheme();
   const [windows, setWindows] = useState<Record<AppId, WindowState>>(INITIAL_WINDOWS);
   const [mobileActive, setMobileActive] = useState<AppId | null>(null);
   // PC는 여러 창을 겹쳐 보여주지만 모바일은 이 id와 일치하는 창 하나만 표시한다.
@@ -482,7 +484,8 @@ export default function PortfolioDesktop() {
   const [iconOffsets, setIconOffsets] = useState<Record<ShortcutId, Point>>({
     about: { x: 0, y: 0 }, works: { x: 0, y: 0 }, notes: { x: 0, y: 0 }, contact: { x: 0, y: 0 },
   });
-  const [currentProject, setCurrentProject] = useState<Project>(projects[0]);
+  // DB가 비었거나 연결에 실패해도 다른 앱은 사용할 수 있도록 null을 허용한다.
+  const [currentProject, setCurrentProject] = useState<Project | null>(projects[0] ?? null);
   const [contactView, setContactView] = useState<"links" | "compose">("links");
   // 폼 입력은 부모가 보관해 최소화·닫기 후에도 이번 방문 중에는 유지한다.
   const [contactDraft, setContactDraft] = useState<ContactMessage>(EMPTY_CONTACT_MESSAGE);
@@ -575,16 +578,16 @@ export default function PortfolioDesktop() {
   // 창의 공통 조작과 앱별 내용은 분리한다. Works는 클릭 콜백, 상세는 선택된 데이터를 받는다.
   const windowContent: Record<AppId, React.ReactNode> = {
     about: <AboutContent />,
-    works: <WorksContent onOpenProject={openProject} />,
+    works: <WorksContent projects={projects} unavailable={projectsUnavailable} onOpenProject={openProject} />,
     notes: <NotesContent />,
     contact: contactView === "compose" ? (
       <ContactForm draft={contactDraft} onDraftChange={setContactDraft} onBack={() => setContactView("links")} onSend={isContactDeliveryConfigured ? sendLetter : undefined} />
     ) : <ContactContent onCompose={() => setContactView("compose")} />,
-    project: <ProjectDetailContent project={currentProject} onBack={returnToWorks} />,
+    project: currentProject ? <ProjectDetailContent key={currentProject.id} project={currentProject} projectNumber={projects.findIndex(({ id }) => id === currentProject.id) + 1} onBack={returnToWorks} /> : null,
   };
 
   return (
-    <main className={`desktop theme-${theme} ${mobileWindowOpen ? "has-mobile-window" : ""} ${mobileMaximized ? "has-mobile-maximized" : ""} ${WINDOW_ORDER.some((id) => windows[id].open && !windows[id].minimized && windows[id].maximized) ? "has-maximized" : ""}`} onClick={(event) => { if (event.target === event.currentTarget) setSelected(null); }}>
+    <main className={`desktop ${mobileWindowOpen ? "has-mobile-window" : ""} ${mobileMaximized ? "has-mobile-maximized" : ""} ${WINDOW_ORDER.some((id) => windows[id].open && !windows[id].minimized && windows[id].maximized) ? "has-maximized" : ""}`} onClick={(event) => { if (event.target === event.currentTarget) setSelected(null); }}>
       <Wallpaper />
       <p className="welcome">WELCOME TO SUNGHO&apos;S DESKTOP / <CurrentYear /></p>
       <div className="top-actions">
@@ -593,8 +596,8 @@ export default function PortfolioDesktop() {
         </button>
         <div className="theme-picker" role="group" aria-label="색상 테마 선택">
           <span>테마</span>
-          {(["peach", "sky", "lilac"] as Theme[]).map((color) => (
-            <button key={color} className={`theme-swatch swatch-${color} ${theme === color ? "selected" : ""}`} type="button" onClick={() => setTheme(color)} aria-label={`${color} 테마`} aria-pressed={theme === color} title={`${color} 테마`} />
+          {THEMES.map((color) => (
+            <button key={color} className={`theme-swatch swatch-${color}`} type="button" onClick={() => setTheme(color)} aria-label={`${color} 테마`} aria-pressed={theme === color} title={`${color} 테마`} />
           ))}
         </div>
       </div>
@@ -606,7 +609,7 @@ export default function PortfolioDesktop() {
       </nav>
       <div className="windows-layer">
         {WINDOW_ORDER.map((id) => (
-          <AppWindow key={id} id={id} title={id === "project" ? `${currentProject.title} / project detail` : id === "contact" && contactView === "compose" ? "new_message.txt" : WINDOW_TITLES[id]} state={windows[id]} mobileVisible={mobileActive === id} onFocus={bringFront} onMove={moveWindow} onResize={resizeWindow} onMinimize={minimize} onMaximize={maximize} onClose={close}>
+          <AppWindow key={id} id={id} title={id === "project" ? `${currentProject?.title ?? "project"} / project detail` : id === "works" ? `works / ${projects.length} items` : id === "contact" && contactView === "compose" ? "new_message.txt" : WINDOW_TITLES[id]} state={windows[id]} mobileVisible={mobileActive === id} projectCount={projects.length} onFocus={bringFront} onMove={moveWindow} onResize={resizeWindow} onMinimize={minimize} onMaximize={maximize} onClose={close}>
             {windowContent[id]}
           </AppWindow>
         ))}
