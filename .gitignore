@@ -43,6 +43,10 @@ yarn-error.log*
 *.log
 ProfileView.jfif
 
+# home server tools (DDNS installer, hidden launcher and local setup notes)
+/scripts/cloudflare-ddns/
+/server-local/
+
 # vercel
 .vercel
 

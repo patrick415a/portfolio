@@ -106,7 +106,7 @@ export function WorksContent({ onOpenProject }: WorksContentProps) {
   );
 }
 
-export function ProjectDetailContent({ project }: { project: Project }) {
+export function ProjectDetailContent({ project, onBack }: { project: Project; onBack: () => void }) {
   // 목록 순서를 01, 02처럼 표시한다. ??는 상세용 제목이 없을 때 기본 제목을 사용하는 문법이다.
   // description?.map처럼 ?.를 쓰면 선택 속성이 없는 프로젝트에서도 오류 없이 넘어간다.
   const projectNumber = String(projects.findIndex(({ id }) => id === project.id) + 1).padStart(2, "0");
@@ -114,7 +114,10 @@ export function ProjectDetailContent({ project }: { project: Project }) {
   return (
     <div className="detail-content">
       <p className="eyebrow">PROJECT / {project.detailEyebrow ?? `${projectNumber} · ${project.subtitle.toUpperCase()}`}</p>
-      <h2>{project.detailTitle ?? project.title}</h2>
+      <div className="detail-heading">
+        <h2>{project.detailTitle ?? project.title}</h2>
+        <button className="project-back" type="button" onClick={onBack} aria-label="상세 닫고 Works로 돌아가기">← works</button>
+      </div>
       <div className="detail-layout">
         <div className="detail-preview">
           {project.isCurrentSite && <PortfolioPreview />}

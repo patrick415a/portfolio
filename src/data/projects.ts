@@ -29,6 +29,7 @@ export const projects: Project[] = [
     subtitle: "WEB / 2026",
     status: "public",
     isCurrentSite: true,
+    githubUrl: "https://github.com/patrick415a/portfolio",
     detailTitle: "포트폴리오",
     detailEyebrow: "01 · PERSONAL PORTFOLIO",
     description: [
@@ -43,6 +44,8 @@ export const projects: Project[] = [
     subtitle: "WEB / 2026",
     status: "public",
     image: "/assets/guddaji-screenshot.jpg",
+    githubUrl: "https://github.com/patrick415a/guddaji",
+    siteUrl: "https://guddaji.bysungho.site",
     detailTitle: "구따지",
     detailEyebrow: "02 · INTERACTIVE 3D WEB",
     description: [

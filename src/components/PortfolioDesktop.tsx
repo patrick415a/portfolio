@@ -59,10 +59,10 @@ const WINDOW_TITLES: Record<AppId, string> = {
   contact: "contact.txt",
   project: "project detail",
 };
-// PC 첫 화면은 About과 Works를 연다. 모바일에서 보이는 창은 mobileActive로 따로 정한다.
+// 첫 접속에는 PC와 모바일 모두 창 없이 바탕화면을 보여준다. 아이콘이나 독으로 창을 연다.
 const INITIAL_WINDOWS: Record<AppId, WindowState> = {
-  about: { open: true, minimized: false, maximized: false, z: 12 },
-  works: { open: true, minimized: false, maximized: false, z: 11 },
+  about: { open: false, minimized: false, maximized: false, z: 12 },
+  works: { open: false, minimized: false, maximized: false, z: 11 },
   notes: { open: false, minimized: false, maximized: false, z: 10 },
   contact: { open: false, minimized: false, maximized: false, z: 10 },
   project: { open: false, minimized: false, maximized: false, z: 10 },
@@ -476,7 +476,7 @@ export default function PortfolioDesktop() {
   // useState 값이 바뀌면 React가 화면을 다시 계산한다. 앱 간 공유 상태는 이 부모에 모은다.
   const [theme, setTheme] = useState<Theme>("peach");
   const [windows, setWindows] = useState<Record<AppId, WindowState>>(INITIAL_WINDOWS);
-  const [mobileActive, setMobileActive] = useState<AppId | null>("about");
+  const [mobileActive, setMobileActive] = useState<AppId | null>(null);
   // PC는 여러 창을 겹쳐 보여주지만 모바일은 이 id와 일치하는 창 하나만 표시한다.
   const [selected, setSelected] = useState<ShortcutId | null>(null);
   const [iconOffsets, setIconOffsets] = useState<Record<ShortcutId, Point>>({
@@ -532,6 +532,29 @@ export default function PortfolioDesktop() {
     // 클릭한 프로젝트 데이터를 먼저 선택하고, 같은 상세 창 틀에 그 내용을 보여준다.
     setCurrentProject(project);
     openApp("project");
+    if (!isMobile()) {
+      const worksWindow = document.querySelector<HTMLElement>(".window-works");
+      if (worksWindow) {
+        const rect = worksWindow.getBoundingClientRect();
+        // Works의 현재 위치를 기준으로, 상세 창을 조금 더 위쪽에 겹쳐 연다.
+        // 화면 밖으로 나가는 부분은 AppWindow의 CSS clamp가 제한한다.
+        setWindows((current) => ({
+          ...current,
+          project: { ...current.project, position: { x: rect.left - 100, y: rect.top - 48 } },
+        }));
+      }
+    }
+  };
+  const returnToWorks = () => {
+    // 상세 닫기와 목록 복원을 한 번에 처리한다. Works의 위치·크기는 그대로 유지한다.
+    const z = ++nextZ.current;
+    setWindows((current) => ({
+      ...current,
+      project: { ...current.project, open: false, minimized: false, maximized: false },
+      works: { ...current.works, open: true, minimized: false, z },
+    }));
+    setMobileActive("works");
+    setSelected(null);
   };
   // 별도 활성 상태를 중복 저장하지 않고, 보이는 창 중 z가 가장 큰 창을 계산한다.
   const activeDesktop = WINDOW_ORDER.filter((id) => windows[id].open && !windows[id].minimized).sort((a, b) => windows[b].z - windows[a].z)[0];
@@ -557,7 +580,7 @@ export default function PortfolioDesktop() {
     contact: contactView === "compose" ? (
       <ContactForm draft={contactDraft} onDraftChange={setContactDraft} onBack={() => setContactView("links")} onSend={isContactDeliveryConfigured ? sendLetter : undefined} />
     ) : <ContactContent onCompose={() => setContactView("compose")} />,
-    project: <ProjectDetailContent project={currentProject} />,
+    project: <ProjectDetailContent project={currentProject} onBack={returnToWorks} />,
   };
 
   return (
