@@ -14,5 +14,5 @@ export const profile: {
   birthDateLabel: "1995년 4월 15일",
   avatarSrc: "/assets/sungho-avatar.png",
   email: "patrick415@gmail.com",
-  githubUrl: undefined,
+  githubUrl: "https://github.com/patrick415a",
 };
